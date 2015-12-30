@@ -1,2 +1,2 @@
 # ZigForum
-A forum web application written with AngularJS + ASP.NET Web API
+A forum web application written in AngularJS and ASP.NET Web API
