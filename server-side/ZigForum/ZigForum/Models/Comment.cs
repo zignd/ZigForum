@@ -10,11 +10,15 @@ namespace ZigForum.Models
     {
         public int Id { get; set; }
         public int PostId { get; set; }
-        public int UserId { get; set; }
+        public string UserId { get; set; }
         public int? ParentId { get; set; }
         public string Body { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
+
+        public virtual Post Post { get; set; }
+        public virtual User User { get; set; }
+        public virtual Comment Parent { get; set; }
     }
 }

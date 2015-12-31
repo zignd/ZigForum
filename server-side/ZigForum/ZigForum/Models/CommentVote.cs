@@ -6,13 +6,16 @@ using System.Threading.Tasks;
 
 namespace ZigForum.Models
 {
-    public class CommentHistory
-    {
-        public int Id { get; set; }
+    public class CommentVote
+    {   
         public int CommentId { get; set; }
-        public string Body { get; set; }
+        public string UserAuthorId { get; set; }
+        public string UserTargetId { get; set; }
+        public bool IsUpVote { get; set; }
         public DateTime Created { get; set; }
 
         public virtual Comment Comment { get; set; }
+        public virtual User UserAuthor { get; set; }
+        public virtual User UserTarget { get; set; }
     }
 }

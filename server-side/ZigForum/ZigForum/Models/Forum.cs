@@ -13,5 +13,7 @@ namespace ZigForum.Models
         public string Name { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime Created { get; set; }
+
+        public virtual Forum Parent { get; set; }
     }
 }

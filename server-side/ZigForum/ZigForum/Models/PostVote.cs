@@ -7,14 +7,16 @@ using System.Threading.Tasks;
 
 namespace ZigForum.Models
 {
-    public class PostHistory
-    {
-        public int Id { get; set; }
+    public class PostVote
+    {   
         public int PostId { get; set; }
-        public string Title { get; set; }
-        public string Body { get; set; }
+        public string UserAuthorId { get; set; }
+        public string UserTargetId { get; set; }
+        public bool IsUpVote { get; set; }
         public DateTime Created { get; set; }
 
         public virtual Post Post { get; set; }
+        public virtual User UserAuthor { get; set; }
+        public virtual User UserTarget { get; set; }
     }
 }
