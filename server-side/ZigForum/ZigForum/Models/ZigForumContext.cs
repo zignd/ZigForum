@@ -27,6 +27,9 @@ namespace ZigForum.Models
         /// </remarks>
         public ZigForumContext() : base("ZigForumContext")
         {
+            // Yeah dynamic proxies were disabled and here's the reason:
+            // http://johnnycode.com/2012/04/10/serializing-circular-references-with-json-net-and-entity-framework/
+            Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Forum> Forums { get; set; }
@@ -68,6 +71,12 @@ namespace ZigForum.Models
             modelBuilder.Entity<Forum>()
                 .HasOptional(f => f.Parent);
 
+            modelBuilder.Entity<Forum>()
+                .Property(f => f.Name).IsRequired();
+
+            modelBuilder.Entity<Forum>()
+                .Property(f => f.Created).IsRequired();
+
             // Post
 
             modelBuilder.Entity<Post>()
@@ -76,6 +85,18 @@ namespace ZigForum.Models
             modelBuilder.Entity<Post>()
                 .HasRequired(p => p.User);
 
+            modelBuilder.Entity<Post>()
+                .Property(p => p.UserId).IsRequired();
+
+            modelBuilder.Entity<Post>()
+                .Property(p => p.Title).IsRequired();
+
+            modelBuilder.Entity<Post>()
+                .Property(p => p.Body).IsRequired();
+
+            modelBuilder.Entity<Post>()
+                .Property(p => p.Created).IsRequired();
+
             // PostHistory
 
             modelBuilder.Entity<PostHistory>()
@@ -83,6 +104,18 @@ namespace ZigForum.Models
 
             modelBuilder.Entity<PostHistory>()
                 .HasRequired(p => p.Post);
+
+            modelBuilder.Entity<PostHistory>()
+                .Property(p => p.PostId).IsRequired();
+
+            modelBuilder.Entity<PostHistory>()
+                .Property(p => p.Title).IsRequired();
+
+            modelBuilder.Entity<PostHistory>()
+                .Property(p => p.Body).IsRequired();
+
+            modelBuilder.Entity<PostHistory>()
+                .Property(p => p.Created).IsRequired();
 
             // PostVote
 
@@ -98,6 +131,18 @@ namespace ZigForum.Models
             modelBuilder.Entity<PostVote>()
                 .HasRequired(p => p.UserTarget);
 
+            modelBuilder.Entity<PostVote>()
+                .Property(p => p.PostId).IsRequired();
+
+            modelBuilder.Entity<PostVote>()
+                .Property(p => p.UserAuthorId).IsRequired();
+
+            modelBuilder.Entity<PostVote>()
+                .Property(p => p.UserTargetId).IsRequired();
+
+            modelBuilder.Entity<PostVote>()
+                .Property(p => p.Created).IsRequired();
+
             // Comment
 
             modelBuilder.Entity<Comment>()
@@ -112,6 +157,18 @@ namespace ZigForum.Models
             modelBuilder.Entity<Comment>()
                 .HasRequired(c => c.Parent);
 
+            modelBuilder.Entity<Comment>()
+                .Property(c => c.PostId).IsRequired();
+
+            modelBuilder.Entity<Comment>()
+                .Property(c => c.UserId).IsRequired();
+
+            modelBuilder.Entity<Comment>()
+                .Property(c => c.Body).IsRequired();
+
+            modelBuilder.Entity<Comment>()
+                .Property(c => c.Created).IsRequired();
+
             // CommentHistory
 
             modelBuilder.Entity<CommentHistory>()
@@ -119,6 +176,15 @@ namespace ZigForum.Models
 
             modelBuilder.Entity<CommentHistory>()
                 .HasRequired(c => c.Comment);
+
+            modelBuilder.Entity<CommentHistory>()
+                .Property(c => c.CommentId).IsRequired();
+
+            modelBuilder.Entity<CommentHistory>()
+                .Property(c => c.Body).IsRequired();
+
+            modelBuilder.Entity<CommentHistory>()
+                .Property(c => c.Created).IsRequired();
 
             // CommentVote
 
@@ -134,10 +200,31 @@ namespace ZigForum.Models
             modelBuilder.Entity<CommentVote>()
                 .HasRequired(c => c.UserTarget);
 
+            modelBuilder.Entity<CommentVote>()
+                .Property(c => c.CommentId).IsRequired();
+
+            modelBuilder.Entity<CommentVote>()
+                .Property(c => c.UserAuthorId).IsRequired();
+
+            modelBuilder.Entity<CommentVote>()
+                .Property(c => c.UserTargetId).IsRequired();
+
+            modelBuilder.Entity<CommentVote>()
+                .Property(c => c.Created).IsRequired();
+
             // ForumModerator
 
             modelBuilder.Entity<ForumModerator>()
                 .HasKey(f => new { f.ForumId, f.UserId });
+
+            modelBuilder.Entity<ForumModerator>()
+                .Property(f => f.UserId).IsRequired();
+
+            modelBuilder.Entity<ForumModerator>()
+                .Property(f => f.ForumId).IsRequired();
+
+            modelBuilder.Entity<ForumModerator>()
+                .Property(f => f.Created).IsRequired();
 
             // Ban
 
@@ -146,6 +233,18 @@ namespace ZigForum.Models
 
             modelBuilder.Entity<Ban>()
                 .HasRequired(b => b.User);
+
+            modelBuilder.Entity<Ban>()
+                .Property(b => b.UserId).IsRequired();
+
+            modelBuilder.Entity<Ban>()
+                .Property(b => b.Reason).IsRequired();
+
+            modelBuilder.Entity<Ban>()
+                .Property(b => b.BannedUntil).IsRequired();
+
+            modelBuilder.Entity<Ban>()
+                .Property(b => b.Created).IsRequired();
         }
     }
 }

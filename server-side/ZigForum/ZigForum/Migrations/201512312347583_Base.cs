@@ -17,9 +17,9 @@ namespace ZigForum.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(nullable: false, maxLength: 128),
-                        IsBanned = c.Boolean(nullable: false),
-                        Reason = c.String(),
-                        BannedUntil = c.DateTime(),
+                        IsActive = c.Boolean(nullable: false),
+                        Reason = c.String(nullable: false),
+                        BannedUntil = c.DateTime(nullable: false),
                         Created = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -34,7 +34,7 @@ namespace ZigForum.Migrations
                         PostId = c.Int(nullable: false),
                         UserId = c.String(nullable: false, maxLength: 128),
                         ParentId = c.Int(nullable: false),
-                        Body = c.String(),
+                        Body = c.String(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                         Updated = c.DateTime(),
                         Created = c.DateTime(nullable: false),
@@ -53,8 +53,8 @@ namespace ZigForum.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(nullable: false, maxLength: 128),
-                        Title = c.String(),
-                        Body = c.String(),
+                        Title = c.String(nullable: false),
+                        Body = c.String(nullable: false),
                         IsLocked = c.Boolean(nullable: false),
                         LockedReason = c.String(),
                         IsDeleted = c.Boolean(nullable: false),
@@ -71,7 +71,7 @@ namespace ZigForum.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         CommentId = c.Int(nullable: false),
-                        Body = c.String(),
+                        Body = c.String(nullable: false),
                         Created = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
@@ -102,7 +102,7 @@ namespace ZigForum.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         ParentId = c.Int(),
-                        Name = c.String(),
+                        Name = c.String(nullable: false),
                         IsDeleted = c.Boolean(nullable: false),
                         Created = c.DateTime(nullable: false),
                     })
@@ -130,8 +130,8 @@ namespace ZigForum.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         PostId = c.Int(nullable: false),
-                        Title = c.String(),
-                        Body = c.String(),
+                        Title = c.String(nullable: false),
+                        Body = c.String(nullable: false),
                         Created = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)

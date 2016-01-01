@@ -13,7 +13,7 @@ namespace ZigForum.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201512310415323_Base"; }
+            get { return "201512312347583_Base"; }
         }
         
         string IMigrationMetadata.Source

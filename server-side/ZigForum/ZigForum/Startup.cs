@@ -1,4 +1,5 @@
-﻿using Microsoft.Owin;
+﻿using FluentValidation.WebApi;
+using Microsoft.Owin;
 using Microsoft.Owin.Cors;
 using Owin;
 using System;
@@ -34,6 +35,8 @@ namespace ZigForum
             ConfigureAuth(app);
             // Add the Web API framework to the app's pipeline
             app.UseWebApi(config);
+            // Sets FluentValidation as the default model validator
+            FluentValidationModelValidatorProvider.Configure(config);
         }
     }
 }

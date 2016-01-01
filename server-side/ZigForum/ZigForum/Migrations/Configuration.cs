@@ -35,6 +35,29 @@ namespace ZigForum.Migrations
             return identityResult.Succeeded;
         }
 
+        private void AddPostsComments(ZigForumContext context)
+        {
+            var userManager = new UserManager<User>(new UserStore<User>(context));
+
+            context.Posts.AddRange(new[]
+            {
+                new Post
+                {
+                    Title = "Title 1",
+                    Body = "Body 1",
+                    UserId = userManager.FindByName("admin").Id,
+                    Created = DateTime.Now
+                },
+                new Post
+                {
+                    Title = "Title 2",
+                    Body = "Body 2",
+                    UserId = userManager.FindByName("admin").Id,
+                    Created = DateTime.Now
+                }
+            });
+        }
+
         protected override void Seed(ZigForumContext context)
         {
             //  This method will be called after migrating to the latest version.
@@ -51,6 +74,7 @@ namespace ZigForum.Migrations
             //
 
             AddUser(context);
+            AddPostsComments(context);
         }
     }
 }
