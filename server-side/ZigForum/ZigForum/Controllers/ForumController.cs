@@ -14,11 +14,20 @@ namespace ZigForum.Controllers
     [RoutePrefix("api/forum")]
     public class ForumController : ApiController
     {
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
             using (var db = new ZigForumContext())
             {
-                return Ok(db.Forums.ToArray());
+                var viewModel = await (from f in db.Forums
+                                       select new ForumGetViewModel
+                                       {
+                                           Id = f.Id,
+                                           Name = f.Name,
+                                           Created = f.Created,
+                                           Parent = f.Parent
+                                       }).ToArrayAsync();
+
+                return Ok(viewModel);
             }
         }
 
@@ -31,7 +40,15 @@ namespace ZigForum.Controllers
                 if (forum == null)
                     return NotFound();
 
-                return Ok(forum);
+                var viewModel = new ForumGetViewModel
+                {
+                    Id = forum.Id,
+                    Name = forum.Name,
+                    Created = forum.Created,
+                    Parent = forum.Parent
+                };
+
+                return Ok(viewModel);
             }
         }
 
