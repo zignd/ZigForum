@@ -37,9 +37,6 @@ namespace ZigForum.Models.Validators
     {
         public ForumPutValidator()
         {
-            RuleFor(x => x.Id)
-                .NotEmpty();
-
             RuleFor(x => x.Name)
                 .NotEmpty();
         }

@@ -11,6 +11,7 @@ namespace ZigForum.Models
     {
         public int Id { get; set; }
         public string UserId { get; set; }
+        public int ForumId { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public bool IsLocked { get; set; }
@@ -20,5 +21,6 @@ namespace ZigForum.Models
         public DateTime Created { get; set; }
 
         public virtual User User { get; set; }
+        public virtual Forum Forum { get; set; }
     }
 }

@@ -6,6 +6,7 @@ using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ZigForum.Models.Common;
 
 namespace ZigForum.Models
 {
@@ -16,7 +17,7 @@ namespace ZigForum.Models
     /// This class inherits from IdentityDbContext which provides the
     /// DbSet<> for User and IdentityRole.
     /// </remarks>
-    public class ZigForumContext : IdentityDbContext<User>
+    public class ZigForumContext : IdentityDbContext<User>, IZigForumContext
     {
         /// <summary>
         /// Creates a new instance of the context
@@ -86,7 +87,13 @@ namespace ZigForum.Models
                 .HasRequired(p => p.User);
 
             modelBuilder.Entity<Post>()
+                .HasRequired(p => p.Forum);
+
+            modelBuilder.Entity<Post>()
                 .Property(p => p.UserId).IsRequired();
+
+            modelBuilder.Entity<Post>()
+                .Property(p => p.ForumId).IsRequired();
 
             modelBuilder.Entity<Post>()
                 .Property(p => p.Title).IsRequired();
@@ -245,6 +252,11 @@ namespace ZigForum.Models
 
             modelBuilder.Entity<Ban>()
                 .Property(b => b.Created).IsRequired();
+        }
+
+        public void MarkAsModified(object item)
+        {
+            Entry(item).State = EntityState.Modified;
         }
     }
 }

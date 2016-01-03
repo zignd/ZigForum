@@ -15,49 +15,6 @@ namespace ZigForum.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
-        private bool AddUser(ZigForumContext context)
-        {
-            var userManager = new UserManager<User>(new UserStore<User>(context));
-
-            var user = new User()
-            {
-                UserName = "admin",
-                Created = DateTime.Now
-            };
-
-            if (userManager.FindByName(user.UserName) != null)
-            {
-                return true;
-            }
-
-            var identityResult = userManager.Create(user, "password");
-
-            return identityResult.Succeeded;
-        }
-
-        private void AddPostsComments(ZigForumContext context)
-        {
-            var userManager = new UserManager<User>(new UserStore<User>(context));
-
-            context.Posts.AddRange(new[]
-            {
-                new Post
-                {
-                    Title = "Title 1",
-                    Body = "Body 1",
-                    UserId = userManager.FindByName("admin").Id,
-                    Created = DateTime.Now
-                },
-                new Post
-                {
-                    Title = "Title 2",
-                    Body = "Body 2",
-                    UserId = userManager.FindByName("admin").Id,
-                    Created = DateTime.Now
-                }
-            });
-        }
-
         protected override void Seed(ZigForumContext context)
         {
             //  This method will be called after migrating to the latest version.
@@ -73,8 +30,83 @@ namespace ZigForum.Migrations
             //    );
             //
 
-            AddUser(context);
-            AddPostsComments(context);
+            CreateRoles(context);
+            CreateAdmin(context);
+
+            CreateTestData(context);
+        }
+
+        private void CreateRoles(ZigForumContext context)
+        {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            roleManager.Create(new IdentityRole("Administrator"));
+            roleManager.Create(new IdentityRole("Moderator"));
+        }
+
+        private void CreateAdmin(ZigForumContext context)
+        {
+            var userManager = new UserManager<User>(new UserStore<User>(context));
+
+            var admin = new User
+            {
+                UserName = "admin",
+                Created = DateTime.Now
+            };
+            try
+            {
+                userManager.Create(admin, "password");
+                admin = userManager.FindByName(admin.UserName);
+                userManager.AddToRole(admin.Id, "Administrator");
+            }
+            catch
+            {
+                throw new Exception("0.1");
+            }
+            
+        }
+
+        private void CreateTestData(ZigForumContext context)
+        {
+            var userManager = new UserManager<User>(new UserStore<User>(context));
+
+            // User
+            
+            var user = new User
+            {
+                UserName = "user1",
+                Created = DateTime.Now
+            };
+
+            userManager.Create(user, "password");
+            user = userManager.FindByName(user.UserName);
+
+            // Forum
+
+            context.Forums.Add(new Forum
+            {
+                Name = "Forum 1",
+                Created = DateTime.Now
+            });
+
+            // Post
+
+            context.Posts.AddRange(new[]
+            {
+                new Post
+                {
+                    UserId = user.Id,
+                    Title = "Title 1",
+                    Body = "Body 1",
+                    Created = DateTime.Now
+                },
+                new Post
+                {
+                    UserId = user.Id,
+                    Title = "Title 2",
+                    Body = "Body 2",
+                    Created = DateTime.Now
+                }
+            });
         }
     }
 }

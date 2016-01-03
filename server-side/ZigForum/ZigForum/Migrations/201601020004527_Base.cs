@@ -53,6 +53,7 @@ namespace ZigForum.Migrations
                     {
                         Id = c.Int(nullable: false, identity: true),
                         UserId = c.String(nullable: false, maxLength: 128),
+                        ForumId = c.Int(nullable: false),
                         Title = c.String(nullable: false),
                         Body = c.String(nullable: false),
                         IsLocked = c.Boolean(nullable: false),
@@ -62,8 +63,24 @@ namespace ZigForum.Migrations
                         Created = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Forum", t => t.ForumId)
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId)
-                .Index(t => t.UserId);
+                .Index(t => t.UserId)
+                .Index(t => t.ForumId);
+            
+            CreateTable(
+                "dbo.Forum",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        ParentId = c.Int(),
+                        Name = c.String(nullable: false),
+                        IsDeleted = c.Boolean(nullable: false),
+                        Created = c.DateTime(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Forum", t => t.ParentId)
+                .Index(t => t.ParentId);
             
             CreateTable(
                 "dbo.CommentHistory",
@@ -95,20 +112,6 @@ namespace ZigForum.Migrations
                 .Index(t => t.CommentId)
                 .Index(t => t.UserAuthorId)
                 .Index(t => t.UserTargetId);
-            
-            CreateTable(
-                "dbo.Forum",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        ParentId = c.Int(),
-                        Name = c.String(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
-                        Created = c.DateTime(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Forum", t => t.ParentId)
-                .Index(t => t.ParentId);
             
             CreateTable(
                 "dbo.ForumModerator",
@@ -174,7 +177,6 @@ namespace ZigForum.Migrations
             DropForeignKey("dbo.PostHistory", "PostId", "dbo.Post");
             DropForeignKey("dbo.ForumModerator", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.ForumModerator", "ForumId", "dbo.Forum");
-            DropForeignKey("dbo.Forum", "ParentId", "dbo.Forum");
             DropForeignKey("dbo.CommentVote", "UserTargetId", "dbo.AspNetUsers");
             DropForeignKey("dbo.CommentVote", "UserAuthorId", "dbo.AspNetUsers");
             DropForeignKey("dbo.CommentVote", "CommentId", "dbo.Comment");
@@ -182,6 +184,8 @@ namespace ZigForum.Migrations
             DropForeignKey("dbo.Comment", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comment", "PostId", "dbo.Post");
             DropForeignKey("dbo.Post", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Post", "ForumId", "dbo.Forum");
+            DropForeignKey("dbo.Forum", "ParentId", "dbo.Forum");
             DropForeignKey("dbo.Comment", "ParentId", "dbo.Comment");
             DropForeignKey("dbo.Ban", "UserId", "dbo.AspNetUsers");
             DropIndex("dbo.PostVote", new[] { "UserTargetId" });
@@ -190,11 +194,12 @@ namespace ZigForum.Migrations
             DropIndex("dbo.PostHistory", new[] { "PostId" });
             DropIndex("dbo.ForumModerator", new[] { "UserId" });
             DropIndex("dbo.ForumModerator", new[] { "ForumId" });
-            DropIndex("dbo.Forum", new[] { "ParentId" });
             DropIndex("dbo.CommentVote", new[] { "UserTargetId" });
             DropIndex("dbo.CommentVote", new[] { "UserAuthorId" });
             DropIndex("dbo.CommentVote", new[] { "CommentId" });
             DropIndex("dbo.CommentHistory", new[] { "CommentId" });
+            DropIndex("dbo.Forum", new[] { "ParentId" });
+            DropIndex("dbo.Post", new[] { "ForumId" });
             DropIndex("dbo.Post", new[] { "UserId" });
             DropIndex("dbo.Comment", new[] { "ParentId" });
             DropIndex("dbo.Comment", new[] { "UserId" });
@@ -203,9 +208,9 @@ namespace ZigForum.Migrations
             DropTable("dbo.PostVote");
             DropTable("dbo.PostHistory");
             DropTable("dbo.ForumModerator");
-            DropTable("dbo.Forum");
             DropTable("dbo.CommentVote");
             DropTable("dbo.CommentHistory");
+            DropTable("dbo.Forum");
             DropTable("dbo.Post");
             DropTable("dbo.Comment");
             DropTable("dbo.Ban");
