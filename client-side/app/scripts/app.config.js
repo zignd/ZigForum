@@ -25,10 +25,10 @@
                 });
         });
 
-    authentication.$inject = ['$q', '$location', 'user'];
+    authentication.$inject = ['$q', '$location', 'users'];
 
-    function authentication($q, $location, user) {
-        if (!user.isAuthenticated()) {
+    function authentication($q, $location, users) {
+        if (!users.isAuthenticated()) {
             var returnUrl = $location.path();
             $location.path('/signin');
             $location.search('returnUrl', returnUrl);

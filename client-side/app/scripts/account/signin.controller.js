@@ -5,9 +5,9 @@
         .module('zigforumApp')
         .controller('SignInController', SignInController);
     
-    SignInController.$inject = ['$location', 'user'];
+    SignInController.$inject = ['$location', 'users'];
 
-    function SignInController($location, user) {
+    function SignInController($location, users) {
         var vm = this;
 
         vm.username = '';
@@ -43,7 +43,7 @@
         vm.login = function () {
             vm.error = null;
             disableLoginButton();
-            user.authenticate(vm.username, vm.password, vm.persist, onSuccessfulLogin, onFailedLogin);
+            users.authenticate(vm.username, vm.password, vm.persist, onSuccessfulLogin, onFailedLogin);
         };
     }
 })();

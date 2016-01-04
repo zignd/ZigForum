@@ -3,11 +3,11 @@
 
     angular
         .module('zigforumApp')
-        .service('user', user);
+        .service('users', users);
 
-    user.$inject = ['$http', '$cookies', 'TOKEN_URL'];
+    users.$inject = ['$http', '$cookies', 'TOKEN_URL'];
 
-    function user($http, $cookies, TOKEN_URL) {
+    function users($http, $cookies, TOKEN_URL) {
         var sv = this;
 
         function NoAuthenticationException(message) {

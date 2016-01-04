@@ -5,9 +5,9 @@
         .module('zigforumApp')
         .controller('MainController', MainController);
 
-    MainController.$inject = ['user'];
+    MainController.$inject = ['users'];
 
-    function MainController(user) {
+    function MainController(users) {
         var vm = this;
     }
 })();
