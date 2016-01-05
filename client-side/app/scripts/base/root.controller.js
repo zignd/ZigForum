@@ -5,25 +5,25 @@
         .module('zigforumApp')
         .controller('RootController', RootController);
 
-    RootController.$inject = ['$scope', '$location', 'users'];
+    RootController.$inject = ['$scope', '$location', 'user'];
 
-    function RootController($scope, $location, users) {
+    function RootController($scope, $location, user) {
         var vm = this;
 
         $scope.$watch(function () {
-            return users.userData.isAuthenticated;
+            return user.userData.isAuthenticated;
         }, function (data) {
             vm.isAuthenticated = data;
         }, false);
 
         $scope.$watch(function () {
-            return users.userData.username;
+            return user.userData.username;
         }, function (data) {
             vm.username = data;
         }, false);
 
         vm.signOut = function () {
-            users.removeAuthentication();
+            user.removeAuthentication();
             $location.path('/');
             $location.replace();
         }
