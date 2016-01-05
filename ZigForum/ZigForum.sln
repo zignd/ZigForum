@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigForum", "ZigForum\ZigFor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigForum.Tests", "ZigForum.Tests\ZigForum.Tests.csproj", "{074C9E76-1352-46F9-B05E-F436492F1F22}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigForum.App", "ZigForum.App\ZigForum.App.csproj", "{50392407-83C2-44AD-999C-FB3832114E32}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{074C9E76-1352-46F9-B05E-F436492F1F22}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{074C9E76-1352-46F9-B05E-F436492F1F22}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{074C9E76-1352-46F9-B05E-F436492F1F22}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50392407-83C2-44AD-999C-FB3832114E32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50392407-83C2-44AD-999C-FB3832114E32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50392407-83C2-44AD-999C-FB3832114E32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50392407-83C2-44AD-999C-FB3832114E32}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
