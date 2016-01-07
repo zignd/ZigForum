@@ -24,18 +24,18 @@ namespace ZigForum.Models.Validators
     //    }
     //}
 
-    public class ForumPostValidator : AbstractValidator<ForumPostViewModel>
+    public class ForumCreateNewValidator : AbstractValidator<ForumDTO>
     {
-        public ForumPostValidator()
+        public ForumCreateNewValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty();
         }
     }
 
-    public class ForumPutValidator : AbstractValidator<ForumPutViewModel>
+    public class ForumEditValidator : AbstractValidator<ForumDTO>
     {
-        public ForumPutValidator()
+        public ForumEditValidator()
         {
             RuleFor(x => x.Name)
                 .NotEmpty();

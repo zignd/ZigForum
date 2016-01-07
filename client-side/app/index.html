@@ -16,10 +16,6 @@
     <!-- endbuild -->
   </head>
   <body ng-controller="RootController as vm" ng-cloak>
-    <!--[if lte IE 8]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -33,6 +29,7 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a ng-href="#/">Home Page</a></li>
+                    <li><a ng-href="#/forums">Forums</a></li>
                     <li><a ng-href="#/about">About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" ng-show="vm.isAuthenticated">
@@ -55,17 +52,6 @@
         </footer>
     </div>
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
-       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
-       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
-       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
-       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-       ga('create', 'UA-XXXXX-X');
-       ga('send', 'pageview');
-    </script>
-
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -84,11 +70,15 @@
         <script src="scripts/app.js"></script>
         <script src="scripts/app.config.js"></script>
         <script src="scripts/app.constants.js"></script>
-        <script src="scripts/base/user.service.js"></script>
+        <script src="scripts/base/forums.service.js"></script>
+        <script src="scripts/base/users.service.js"></script>
         <script src="scripts/base/root.controller.js"></script>
+        <script src="scripts/components/zg-forum.directive.js"></script>
         <script src="scripts/account/signin.controller.js"></script>
         <script src="scripts/account/signup.controller.js"></script>
         <script src="scripts/main/main.controller.js"></script>
+        <script src="scripts/forums/forums.controller.js"></script>
+        <script src="scripts/forums/forum-detail.controller.js"></script>
         <!-- endbuild -->
 </body>
 </html>

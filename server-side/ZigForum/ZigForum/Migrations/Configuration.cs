@@ -30,6 +30,8 @@ namespace ZigForum.Migrations
             //    );
             //
 
+            // Update-Database -TargetMigration Initial -Force; Add-Migration Base; Update-Database -TargetMigration Base
+
             CreateRoles(context);
             CreateAdmin(context);
 
@@ -80,33 +82,86 @@ namespace ZigForum.Migrations
             userManager.Create(user, "password");
             user = userManager.FindByName(user.UserName);
 
+            context.SaveChanges();
+
             // Forum
 
-            context.Forums.Add(new Forum
+            var forum1 = context.Forums.Add(new Forum
             {
                 Name = "Forum 1",
                 Created = DateTime.Now
             });
 
+            context.SaveChanges();
+
+                var forum1dot1 = context.Forums.Add(new Forum
+                {
+                    ParentId = forum1.Id,
+                    Name = "Forum 1.1",
+                    Created = DateTime.Now
+                });
+
+                context.SaveChanges();
+
+                    var forum1dot1dot1 = context.Forums.Add(new Forum
+                    {
+                        ParentId = forum1dot1.Id,
+                        Name = "Forum 1.1.1",
+                        Created = DateTime.Now
+                    });
+
+                    context.SaveChanges();
+
+                var forum1dot2 = context.Forums.Add(new Forum
+                {
+                    ParentId = forum1.Id,
+                    Name = "Forum 1.2",
+                    Created = DateTime.Now
+                });
+
+                context.SaveChanges();
+
+            var forum2 = context.Forums.Add(new Forum
+            {
+                Name = "Forum 2",
+                Created = DateTime.Now
+            });
+
+            context.SaveChanges();
+
+                var forum2dot1 = context.Forums.Add(new Forum
+                {
+                    ParentId = forum2.Id,
+                    Name = "Forum 2.1",
+                    Created = DateTime.Now
+                });
+
+                context.SaveChanges();
+
+            var forum3 = context.Forums.Add(new Forum
+            {
+                Name = "Forum 3",
+                Created = DateTime.Now
+            });
+
+            context.SaveChanges();
+
             // Post
 
-            context.Posts.AddRange(new[]
+
+            for (int i = 0; i < 100; i++)
             {
-                new Post
+                context.Posts.Add(new Post
                 {
                     UserId = user.Id,
-                    Title = "Title 1",
-                    Body = "Body 1",
+                    ForumId = forum1.Id,
+                    Title = $"Title {i}",
+                    Body = $"Body {i}",
                     Created = DateTime.Now
-                },
-                new Post
-                {
-                    UserId = user.Id,
-                    Title = "Title 2",
-                    Body = "Body 2",
-                    Created = DateTime.Now
-                }
-            });
+                });
+            }
+
+            context.SaveChanges();
         }
     }
 }

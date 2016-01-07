@@ -13,7 +13,6 @@ namespace ZigForum.Models
         public string UserId { get; set; }
         public int? ParentId { get; set; }
         public string Body { get; set; }
-        public bool IsDeleted { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
 

@@ -10,6 +10,16 @@
                     controller: 'MainController',
                     controllerAs: 'vm'
                 })
+                .when('/forums', {
+                    templateUrl: 'scripts/forums/forums.html',
+                    controller: 'ForumsController',
+                    controllerAs: 'vm'
+                })
+                .when('/forum/:id', {
+                    templateUrl: 'scripts/forums/forum-detail.html',
+                    controller: 'ForumDetailController',
+                    controllerAs: 'vm'
+                })
                 .when('/signin', {
                     templateUrl: 'scripts/account/signin.html',
                     controller: 'SignInController',

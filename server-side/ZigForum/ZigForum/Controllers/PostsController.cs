@@ -17,7 +17,7 @@ namespace ZigForum.Controllers
     [RoutePrefix("api/posts")]
     public class PostsController : ZigForumApiController
     {
-        public PostsController() : base() { }
+        /*public PostsController() : base() { }
 
         public PostsController(ZigForumContext db) : base(db) { }
 
@@ -137,6 +137,6 @@ namespace ZigForum.Controllers
             await Db.SaveChangesAsync();
 
             return Ok();
-        }
+        }*/
     }
 }

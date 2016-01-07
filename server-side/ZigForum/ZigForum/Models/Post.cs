@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -16,7 +17,6 @@ namespace ZigForum.Models
         public string Body { get; set; }
         public bool IsLocked { get; set; }
         public string LockedReason { get; set; }
-        public bool IsDeleted { get; set; }
         public DateTime? Updated { get; set; }
         public DateTime Created { get; set; }
 

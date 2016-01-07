@@ -46,9 +46,9 @@ namespace ZigForum.Tests
             mockContext.Setup(c => c.Forums).Returns(mockSet.Object);
 
             var controller = new ForumsController(mockContext.Object);
-            var result = await controller.GetAllForums();
+            var result = await controller.Get();
 
-            var okNegotiated = (OkNegotiatedContentResult<ForumGetViewModel[]>)result;
+            var okNegotiated = (OkNegotiatedContentResult<ForumDTO[]>)result;
             Assert.AreEqual(okNegotiated.Content.AsQueryable().ElementAt(0).Id, data.ElementAt(0).Id);
         }
     }

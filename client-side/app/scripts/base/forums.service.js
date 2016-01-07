@@ -11,11 +11,20 @@
         var sv = this;
         var endpoint = API_URL + '/forums';
         
-        sv.getAllForums = function (onSuccess, onFail) {
+        /**
+         * Retrieves all forums
+         */
+        sv.get = function (onSuccess, onFail, page, pageSize) {
+            var params = {};
+            if (typeof page === 'undefined') { params.page = page; }
+            if (typeof pageSize === 'undefined') { params.pageSize = pageSize; }
+            
             var config = {
                 method: 'GET',
-                url: endpoint
+                url: endpoint,
+                params: params
             };
+            
             $http(config)
                 .then(function (response) {
                     onSuccess(response.data);
@@ -24,11 +33,37 @@
                 });
         };
         
-        sv.getForumById = function (id, onSuccess, onFail) {
+        /**
+         * Retrieves all top level forums
+         */
+        sv.getAllTopLevel = function (onSuccess, onFail, page, pageSize) {
+            var params = {};
+            if (typeof page === 'undefined') { params.page = page; }
+            if (typeof pageSize === 'undefined') { params.pageSize = pageSize; }
+            
+            var config = {
+                method: 'GET',
+                url: endpoint + '/toplevel',
+                params: params
+            };
+            
+            $http(config)
+                .then(function (response) {
+                    onSuccess(response.data);
+                }, function (response) {
+                    onFail(response.statusText);
+                });
+        }
+        
+        /**
+         * Retrieves a forum by its id
+         */
+        sv.getById = function (onSuccess, onFail, id) {
             var config = {
                 method: 'GET',
                 url: endpoint + '/' + id
             };
+            
             $http(config)
                 .then(function (response) {
                     onSuccess(response.data);
@@ -37,12 +72,16 @@
                 });
         };
         
-        sv.createNewForum = function (newForum, onSuccess, onFail) {
+        /**
+         * Creates a new forum
+         */
+        sv.createNew = function (onSuccess, onFail, newForum) {
             var config = {
                 method: 'POST',
                 url: endpoint + '/create',
                 data: newForum
             };
+            
             $http(config)
                 .then(function (response) {
                     onSuccess(response.data);
@@ -51,12 +90,16 @@
                 });
         };
         
-        sv.editForum = function (id, editedForum, onSuccess, onFail) {
+        /**
+         * Edits an existing forum
+         */
+        sv.edit = function (onSuccess, onFail, id, editedForum) {
             var config = {
                 method: 'PUT',
                 url: endpoint + '/' + id + '/edit',
                 data: editedForum
             };
+            
             $http(config)
                 .then(function (response) {
                     onSuccess(response.data);
@@ -65,11 +108,15 @@
                 });
         };
         
-        sv.deleteForum = function (id, onSuccess, onFail) {
+        /**
+         * Deletes an existing forum
+         */
+        sv.delete = function (onSuccess, onFail, id) {
             var config = {
                 method: 'DELETE',
                 url: endpoint + '/' + id + '/delete' 
             };
+            
             $http(config)
                 .then(function (response) {
                     onSuccess(response.data);

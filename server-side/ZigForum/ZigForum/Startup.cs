@@ -1,6 +1,7 @@
 ﻿using FluentValidation.WebApi;
 using Microsoft.Owin;
 using Microsoft.Owin.Cors;
+using Newtonsoft.Json;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,8 @@ namespace ZigForum
             app.UseWebApi(config);
             // Sets FluentValidation as the default model validator
             FluentValidationModelValidatorProvider.Configure(config);
+            // During serialization null properties will be ignored and not added to the final JSON
+            config.Formatters.JsonFormatter.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
         }
     }
 }

@@ -1,0 +1,59 @@
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a ng-href="#/forum/{{data.id}}">{{data.name}}</a>
+    </div>
+    <table class="table" ng-show="data.subforums">
+        <thead>
+            <tr>
+                <th>Subforums</th>
+                <th>Statistics</th>
+                <th>Last Post</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="subforum in data.subforums">
+                <td>
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="glyphicon glyphicon-folder-close"></span>
+                        </div>
+                        <div class="media-body">
+                            <a ng-href="#/forum/{{subforum.id}}">{{subforum.name}}</a>
+                        </div>
+                    </div>
+                </td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table" ng-show="data.posts">
+        <thead>
+            <tr>
+                <th>Posts</th>
+                <th>Statistics</th>
+                <th>Last Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="post in data.posts">
+                <td>
+                    <div class="media">
+                        <div class="media-left">
+                            <span class="glyphicon glyphicon-file"></span>
+                        </div>
+                        <div class="media-body">{{post.title}}</div>
+                    </div>
+                </td>
+                <td>
+                    <div style="font-size: 10px;">999 Comments</div>
+                    <div style="font-size: 10px;">9999 Views</div>
+                </td>
+                <td>
+                    <div style="font-size: 10px;"><span class="glyphicon glyphicon-user"></span> by {{post.user.user_name}}</div>
+                    <div style="font-size: 10px;"><span class="glyphicon glyphicon-time"></span> Sun Dec 06, 2015 12:18 am</div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

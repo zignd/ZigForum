@@ -28,9 +28,6 @@ namespace ZigForum.Models
         /// </remarks>
         public ZigForumContext() : base("ZigForumContext")
         {
-            // Yeah dynamic proxies were disabled and here's the reason:
-            // http://johnnycode.com/2012/04/10/serializing-circular-references-with-json-net-and-entity-framework/
-            Configuration.ProxyCreationEnabled = false;
         }
 
         public virtual DbSet<Forum> Forums { get; set; }
@@ -60,17 +57,18 @@ namespace ZigForum.Models
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Conventions.Remove<OneToOneConstraintIntroductionConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-
+            
             // Forum
 
             modelBuilder.Entity<Forum>()
                 .HasKey(f => f.Id);
 
             modelBuilder.Entity<Forum>()
-                .HasOptional(f => f.Parent);
+                .HasOptional(f => f.Parent)
+                .WithMany(f => f.SubForums)
+                .HasForeignKey(f => f.ParentId);
 
             modelBuilder.Entity<Forum>()
                 .Property(f => f.Name).IsRequired();
@@ -87,7 +85,9 @@ namespace ZigForum.Models
                 .HasRequired(p => p.User);
 
             modelBuilder.Entity<Post>()
-                .HasRequired(p => p.Forum);
+                    .HasRequired(p => p.Forum)
+                    .WithMany(f => f.Posts)
+                    .HasForeignKey(p => p.ForumId);
 
             modelBuilder.Entity<Post>()
                 .Property(p => p.UserId).IsRequired();

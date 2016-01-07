@@ -35,7 +35,6 @@ namespace ZigForum.Migrations
                         UserId = c.String(nullable: false, maxLength: 128),
                         ParentId = c.Int(nullable: false),
                         Body = c.String(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
                         Updated = c.DateTime(),
                         Created = c.DateTime(nullable: false),
                     })
@@ -58,7 +57,6 @@ namespace ZigForum.Migrations
                         Body = c.String(nullable: false),
                         IsLocked = c.Boolean(nullable: false),
                         LockedReason = c.String(),
-                        IsDeleted = c.Boolean(nullable: false),
                         Updated = c.DateTime(),
                         Created = c.DateTime(nullable: false),
                     })
@@ -75,7 +73,6 @@ namespace ZigForum.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         ParentId = c.Int(),
                         Name = c.String(nullable: false),
-                        IsDeleted = c.Boolean(nullable: false),
                         Created = c.DateTime(nullable: false),
                     })
                 .PrimaryKey(t => t.Id)
