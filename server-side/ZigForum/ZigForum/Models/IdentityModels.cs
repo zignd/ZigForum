@@ -1,33 +1,40 @@
-﻿using Microsoft.AspNet.Identity.EntityFramework;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Linq;
+using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
-using ZigForum.Models.Common;
 
 namespace ZigForum.Models
 {
-    /// <summary>
-    /// Context for accessing the datastore
-    /// </summary>
-    /// <remarks>
-    /// This class inherits from IdentityDbContext which provides the
-    /// DbSet<> for User and IdentityRole.
-    /// </remarks>
-    public class ZigForumContext : IdentityDbContext<User>, IZigForumContext
+    // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+    public class ApplicationUser : IdentityUser
     {
-        /// <summary>
-        /// Creates a new instance of the context
-        /// </summary>
-        /// <remarks>
-        /// This constructor assumes that the context will be named
-        /// "ZigForumContext" in your Web.config file.
-        /// </remarks>
-        public ZigForumContext() : base("ZigForumContext")
+        public DateTime Created { get; set; }
+
+        public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
+            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
+            var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
+            // Add custom user claims here
+            return userIdentity;
+        }
+    }
+
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    {
+        public ApplicationDbContext()
+            : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
+
+        public static ApplicationDbContext Create()
+        {
+            return new ApplicationDbContext();
         }
 
         public virtual DbSet<Forum> Forums { get; set; }
@@ -48,10 +55,6 @@ namespace ZigForum.Models
 
         public virtual DbSet<Ban> Bans { get; set; }
 
-        /// <summary>
-        /// Uses the fluent API to explicitly define some relations in the schema
-        /// </summary>
-        /// <param name="modelBuilder">Supplied by Entity Framework</param>
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -59,7 +62,7 @@ namespace ZigForum.Models
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
             modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
-            
+
             // Forum
 
             modelBuilder.Entity<Forum>()
@@ -131,10 +134,10 @@ namespace ZigForum.Models
 
             modelBuilder.Entity<PostVote>()
                 .HasRequired(p => p.Post);
-            
+
             modelBuilder.Entity<PostVote>()
                 .HasRequired(p => p.UserAuthor);
-            
+
             modelBuilder.Entity<PostVote>()
                 .HasRequired(p => p.UserTarget);
 
@@ -252,11 +255,6 @@ namespace ZigForum.Models
 
             modelBuilder.Entity<Ban>()
                 .Property(b => b.Created).IsRequired();
-        }
-
-        public void MarkAsModified(object item)
-        {
-            Entry(item).State = EntityState.Modified;
         }
     }
 }

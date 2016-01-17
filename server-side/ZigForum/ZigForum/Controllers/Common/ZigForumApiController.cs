@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using System.Web.Http;
 using ZigForum.Models;
 using ZigForum.Models.Common;
@@ -13,17 +15,18 @@ namespace ZigForum.Controllers.Common
 {
     public class ZigForumApiController : ApiController
     {
-        protected ZigForumContext Db { get; } = new ZigForumContext();
-        protected UserManager<User> UserManager { get; set; }
+        private ApplicationDbContext _db;
+
+        protected ApplicationDbContext Db { get { return _db != null ? _db : HttpContext.Current.GetOwinContext().Get<ApplicationDbContext>(); } }
+        protected ApplicationUserManager UserManager { get { return HttpContext.Current.GetOwinContext().GetUserManager<ApplicationUserManager>(); } }
 
         public ZigForumApiController()
         {
-            UserManager = new UserManager<User>(new UserStore<User>(new ZigForumContext()));
         }
 
-        public ZigForumApiController(ZigForumContext db) : this()
+        public ZigForumApiController(ApplicationDbContext db) : this()
         {
-            Db = db;
+            _db = db;
         }
 
         protected override void Dispose(bool disposing)

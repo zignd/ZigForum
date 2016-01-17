@@ -8,14 +8,14 @@ namespace ZigForum.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<ZigForumContext>
+    internal sealed class Configuration : DbMigrationsConfiguration<ApplicationDbContext>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
         }
 
-        protected override void Seed(ZigForumContext context)
+        protected override void Seed(ApplicationDbContext context)
         {
             //  This method will be called after migrating to the latest version.
 
@@ -38,18 +38,18 @@ namespace ZigForum.Migrations
             CreateTestData(context);
         }
 
-        private void CreateRoles(ZigForumContext context)
+        private void CreateRoles(ApplicationDbContext context)
         {
             var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
             roleManager.Create(new IdentityRole("Administrator"));
             roleManager.Create(new IdentityRole("Moderator"));
         }
 
-        private void CreateAdmin(ZigForumContext context)
+        private void CreateAdmin(ApplicationDbContext context)
         {
-            var userManager = new UserManager<User>(new UserStore<User>(context));
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
-            var admin = new User
+            var admin = new ApplicationUser
             {
                 UserName = "admin",
                 Created = DateTime.Now
@@ -67,13 +67,13 @@ namespace ZigForum.Migrations
             
         }
 
-        private void CreateTestData(ZigForumContext context)
+        private void CreateTestData(ApplicationDbContext context)
         {
-            var userManager = new UserManager<User>(new UserStore<User>(context));
+            var userManager = new ApplicationUserManager(new UserStore<ApplicationUser>(context));
 
             // User
             
-            var user = new User
+            var user = new ApplicationUser
             {
                 UserName = "user1",
                 Created = DateTime.Now

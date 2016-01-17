@@ -20,7 +20,7 @@ namespace ZigForum.Controllers
     {
         public ForumsController() : base() { }
 
-        public ForumsController(ZigForumContext db) : base(db) { }
+        public ForumsController(ApplicationDbContext db) : base(db) { }
 
         [AllowAnonymous]
         [HttpGet]

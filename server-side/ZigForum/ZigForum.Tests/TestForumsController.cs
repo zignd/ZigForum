@@ -42,7 +42,7 @@ namespace ZigForum.Tests
             mockSet.As<IQueryable<Forum>>().Setup(m => m.ElementType).Returns(data.ElementType);
             mockSet.As<IQueryable<Forum>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
 
-            var mockContext = new Mock<ZigForumContext>();
+            var mockContext = new Mock<ApplicationDbContext>();
             mockContext.Setup(c => c.Forums).Returns(mockSet.Object);
 
             var controller = new ForumsController(mockContext.Object);

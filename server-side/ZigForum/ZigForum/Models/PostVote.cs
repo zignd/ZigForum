@@ -16,7 +16,7 @@ namespace ZigForum.Models
         public DateTime Created { get; set; }
 
         public virtual Post Post { get; set; }
-        public virtual User UserAuthor { get; set; }
-        public virtual User UserTarget { get; set; }
+        public virtual ApplicationUser UserAuthor { get; set; }
+        public virtual ApplicationUser UserTarget { get; set; }
     }
 }

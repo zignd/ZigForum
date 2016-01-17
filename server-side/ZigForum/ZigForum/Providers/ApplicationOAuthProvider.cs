@@ -18,19 +18,15 @@ namespace ZigForum.Providers
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
-        private readonly Func<UserManager<User>> _userManagerFactory;
+        private readonly Func<ApplicationUserManager> _userManagerFactory;
 
-        public ApplicationOAuthProvider(string publicClientId, Func<UserManager<User>> userManagerFactory)
+        public ApplicationOAuthProvider(string publicClientId, Func<ApplicationUserManager> userManagerFactory)
         {
             if (publicClientId == null)
-            {
                 throw new ArgumentNullException("publicClientId");
-            }
 
             if (userManagerFactory == null)
-            {
                 throw new ArgumentNullException("userManagerFactory");
-            }
 
             _publicClientId = publicClientId;
             _userManagerFactory = userManagerFactory;
@@ -38,7 +34,7 @@ namespace ZigForum.Providers
 
         public override async Task GrantResourceOwnerCredentials(OAuthGrantResourceOwnerCredentialsContext context)
         {
-            using (UserManager<User> userManager = _userManagerFactory())
+            using (UserManager<ApplicationUser> userManager = _userManagerFactory())
             {
                 var user = await userManager.FindAsync(context.UserName, context.Password);
 
@@ -62,9 +58,7 @@ namespace ZigForum.Providers
         public override Task TokenEndpoint(OAuthTokenEndpointContext context)
         {
             foreach (KeyValuePair<string, string> property in context.Properties.Dictionary)
-            {
                 context.AdditionalResponseParameters.Add(property.Key, property.Value);
-            }
 
             return Task.FromResult<object>(null);
         }
@@ -73,9 +67,7 @@ namespace ZigForum.Providers
         {
             // Resource owner password credentials does not provide a client ID.
             if (context.ClientId == null)
-            {
                 context.Validated();
-            }
 
             return Task.FromResult<object>(null);
         }
@@ -87,9 +79,7 @@ namespace ZigForum.Providers
                 Uri expectedRootUri = new Uri(context.Request.Uri, "/");
 
                 if (expectedRootUri.AbsoluteUri == context.RedirectUri)
-                {
                     context.Validated();
-                }
             }
 
             return Task.FromResult<object>(null);

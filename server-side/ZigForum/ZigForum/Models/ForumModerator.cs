@@ -14,7 +14,7 @@ namespace ZigForum.Models
         public DateTime Created { get; set; }
         
         [ForeignKey("UserId")]
-        public virtual User User { get; set; }
+        public virtual ApplicationUser User { get; set; }
         
         public virtual Forum Forum { get; set; }
     }
