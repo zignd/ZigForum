@@ -9,7 +9,8 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using ZigForum.Controllers.Common;
 using ZigForum.Models;
-using ZigForum.Models.ViewModels;
+using ZigForum.Models.DTOs;
+using ZigForum.Models.Validators;
 
 namespace ZigForum.Controllers
 {
@@ -17,73 +18,67 @@ namespace ZigForum.Controllers
     [RoutePrefix("api/posts")]
     public class PostsController : ZigForumApiController
     {
-        /*public PostsController() : base() { }
+        public PostsController() : base() { }
 
-        public PostsController(ZigForumContext db) : base(db) { }
-
-        [AllowAnonymous]
-        [HttpGet]
-        [Route("")]
-        public async Task<IHttpActionResult> GetAllPosts()
-        {
-            var viewModel = await (from f in Db.Posts
-                                   select new PostGetViewModel
-                                   {
-                                       Id = f.Id,
-                                       Title = f.Title,
-                                       Body = f.Body,
-                                       IsLocked = f.IsLocked,
-                                       LockedReason = f.LockedReason,
-                                       IsDeleted = f.IsDeleted,
-                                       Updated = f.Updated,
-                                       Created = f.Created,
-                                       User = f.User,
-                                       Forum = f.Forum
-                                   }).ToArrayAsync();
-
-            return Ok(viewModel);
-        }
+        public PostsController(ApplicationDbContext db) : base(db) { }
 
         [AllowAnonymous]
         [HttpGet]
         [Route("{id:int}")]
-        public async Task<IHttpActionResult> GetForumById(int id)
+        public async Task<IHttpActionResult> GetById(int id)
         {
             var post = await Db.Posts.FindAsync(id);
 
             if (post == null)
                 return NotFound();
 
-            var viewModel = new PostGetViewModel
+            var data = new PostDTO
             {
                 Id = post.Id,
                 Title = post.Title,
                 Body = post.Body,
                 IsLocked = post.IsLocked,
                 LockedReason = post.LockedReason,
-                IsDeleted = post.IsDeleted,
                 Updated = post.Updated,
                 Created = post.Created,
-                User = post.User,
-                Forum = post.Forum
+                User = new UserDTO
+                {
+                    UserName = post.User.UserName
+                },
+                Forum = new ForumDTO
+                {
+                    Id = post.Forum.Id,
+                    Name = post.Forum.Name
+                }
             };
 
-            return Ok(viewModel);
+            return Ok(data);
         }
 
         [HttpPost]
         [Route("create")]
-        public async Task<IHttpActionResult> CreateNewPost([FromBody]PostPostViewModel viewModel)
+        public async Task<IHttpActionResult> CreateNew([FromBody]PostDTO data)
         {
-            if (!ModelState.IsValid)
+            var validator = new PostCreateNewValidator();
+            var validationResult = await validator.ValidateAsync(data);
+
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+
                 return BadRequest(ModelState);
+            }
 
             var post = new Post
             {
                 UserId = User.Identity.GetUserId(),
-                ForumId = viewModel.ForumId,
-                Title = viewModel.Title,
-                Body = viewModel.Body,
+                ForumId = data.ForumId.Value,
+                Title = data.Title,
+                Body = data.Body,
+                IsLocked = false,
+                LockedReason = null,
+                Updated = DateTime.Now,
                 Created = DateTime.Now
             };
 
@@ -95,28 +90,31 @@ namespace ZigForum.Controllers
 
         [HttpPut]
         [Route("{id}/edit")]
-        public async Task<IHttpActionResult> EditForum([FromBody]PostPutViewModel viewModel)
+        public async Task<IHttpActionResult> Edit(int id, [FromBody]PostDTO data)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
+            var validator = new PostEditValidator();
+            var validationResult = await validator.ValidateAsync(data);
 
-            var post = await Db.Posts.FindAsync(viewModel.Id);
+            if (!validationResult.IsValid)
+            {
+                foreach (var error in validationResult.Errors)
+                    ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+
+                return BadRequest(ModelState);
+            }
+
+            var post = await Db.Posts.FindAsync(id);
 
             if (post == null)
                 return NotFound();
 
-            post.UserId = User.Identity.GetUserId();
-            post.ForumId = viewModel.ForumId;
-            post.Title = viewModel.Title;
-            post.Body = viewModel.Body;
-            post.IsLocked = viewModel.IsLocked;
-            post.LockedReason = viewModel.LockedReason;
-            post.IsDeleted = viewModel.IsDeleted;
-            post.Updated = DateTime.Now;
+            post.Title = data.Title;
+            post.Body = data.Body;
 
             Db.Posts.Attach(post);
 
-            Db.MarkAsModified(post);
+            var entry = Db.Entry<Post>(post);
+            entry.State = EntityState.Modified;
 
             await Db.SaveChangesAsync();
 
@@ -125,7 +123,7 @@ namespace ZigForum.Controllers
 
         [HttpDelete]
         [Route("{id:int}/delete")]
-        public async Task<IHttpActionResult> DeletePost(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             var post = await Db.Posts.FindAsync(id);
 
@@ -137,6 +135,6 @@ namespace ZigForum.Controllers
             await Db.SaveChangesAsync();
 
             return Ok();
-        }*/
+        }
     }
 }

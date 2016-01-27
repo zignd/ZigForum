@@ -5,9 +5,9 @@
         .module('zigforumApp')
         .controller('ForumsController', ForumsController);
 
-    ForumsController.$inject = ['$location', 'forums'];
+    ForumsController.$inject = ['forums'];
 
-    function ForumsController($location, forums) {
+    function ForumsController(forums) {
         var vm = this;
         
         vm.topLevelForums = [];

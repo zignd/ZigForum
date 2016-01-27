@@ -12,7 +12,7 @@
             restrict: 'E',
             templateUrl: 'scripts/components/zg-forum.directive.html',
             scope: {
-                data: '='
+                    data: '='
             }
         }
     }

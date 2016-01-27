@@ -20,6 +20,11 @@
                     controller: 'ForumDetailController',
                     controllerAs: 'vm'
                 })
+                .when('/post/:id', {
+                    templateUrl: 'scripts/post/post.html',
+                    controller: 'PostController',
+                    controllerAs: 'vm'
+                })
                 .when('/signin', {
                     templateUrl: 'scripts/account/signin.html',
                     controller: 'SignInController',

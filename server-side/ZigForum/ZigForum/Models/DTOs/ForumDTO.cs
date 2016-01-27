@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ZigForum.Models.Validators;
 
-namespace ZigForum.Models.ViewModels
+namespace ZigForum.Models.DTOs
 {
     public class ForumDTO
     {

@@ -51,6 +51,9 @@ namespace ZigForum
         public void ConfigureAuth(IAppBuilder app)
         {
             app.UseOAuthBearerTokens(OAuthOptions);
+            app.CreatePerOwinContext(ApplicationDbContext.Create);
+            app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
+            app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
         }
     }
 }

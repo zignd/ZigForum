@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ZigForum.Models.ViewModels
+namespace ZigForum.Models.DTOs
 {
     public class UserDTO
     {

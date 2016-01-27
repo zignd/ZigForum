@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Web.Http.Results;
 using ZigForum.Controllers;
 using ZigForum.Models;
-using ZigForum.Models.ViewModels;
+using ZigForum.Models.DTOs;
 using ZigForum.Tests.Common;
 
 namespace ZigForum.Tests

@@ -10,7 +10,7 @@ using System.Web.Http.ModelBinding;
 using ZigForum.Controllers.Common;
 using ZigForum.Models;
 using ZigForum.Models.Validators;
-using ZigForum.Models.ViewModels;
+using ZigForum.Models.DTOs;
 
 namespace ZigForum.Controllers
 {

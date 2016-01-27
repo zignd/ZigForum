@@ -5,9 +5,9 @@
         .module('zigforumApp')
         .controller('ForumDetailController', ForumDetailController);
 
-    ForumDetailController.$inject = ['$location', '$routeParams', 'forums'];
+    ForumDetailController.$inject = ['$routeParams', 'forums'];
 
-    function ForumDetailController($location, $routeParams, forums) {
+    function ForumDetailController($routeParams, forums) {
         var vm = this;
 
         vm.forum = {};
