@@ -85,12 +85,14 @@ namespace ZigForum.Models
                 .HasKey(p => p.Id);
 
             modelBuilder.Entity<Post>()
-                .HasRequired(p => p.User);
+                .HasRequired(p => p.User)
+                .WithMany()
+                .HasForeignKey(p => p.UserId);
 
             modelBuilder.Entity<Post>()
-                    .HasRequired(p => p.Forum)
-                    .WithMany(f => f.Posts)
-                    .HasForeignKey(p => p.ForumId);
+                .HasRequired(p => p.Forum)
+                .WithMany(f => f.Posts)
+                .HasForeignKey(p => p.ForumId);
 
             modelBuilder.Entity<Post>()
                 .Property(p => p.UserId).IsRequired();
@@ -113,7 +115,9 @@ namespace ZigForum.Models
                 .HasKey(p => p.Id);
 
             modelBuilder.Entity<PostHistory>()
-                .HasRequired(p => p.Post);
+                .HasRequired(p => p.Post)
+                .WithMany()
+                .HasForeignKey(p => p.PostId);
 
             modelBuilder.Entity<PostHistory>()
                 .Property(p => p.PostId).IsRequired();
@@ -133,13 +137,19 @@ namespace ZigForum.Models
                 .HasKey(p => new { p.PostId, p.UserAuthorId, p.UserTargetId });
 
             modelBuilder.Entity<PostVote>()
-                .HasRequired(p => p.Post);
+                .HasRequired(p => p.Post)
+                .WithMany()
+                .HasForeignKey(p => p.PostId);
 
             modelBuilder.Entity<PostVote>()
-                .HasRequired(p => p.UserAuthor);
+                .HasRequired(p => p.UserAuthor)
+                .WithMany()
+                .HasForeignKey(p => p.UserAuthorId);
 
             modelBuilder.Entity<PostVote>()
-                .HasRequired(p => p.UserTarget);
+                .HasRequired(p => p.UserTarget)
+                .WithMany()
+                .HasForeignKey(p => p.UserTargetId);
 
             modelBuilder.Entity<PostVote>()
                 .Property(p => p.PostId).IsRequired();
@@ -159,13 +169,19 @@ namespace ZigForum.Models
                 .HasKey(c => c.Id);
 
             modelBuilder.Entity<Comment>()
-                .HasRequired(c => c.Post);
+                .HasRequired(c => c.Post)
+                .WithMany(p => p.Comments)
+                .HasForeignKey(c => c.PostId);
 
             modelBuilder.Entity<Comment>()
-                .HasRequired(c => c.User);
+                .HasRequired(c => c.User)
+                .WithMany()
+                .HasForeignKey(c => c.UserId);
 
             modelBuilder.Entity<Comment>()
-                .HasRequired(c => c.Parent);
+                .HasRequired(c => c.Parent)
+                .WithMany()
+                .HasForeignKey(c => c.ParentId);
 
             modelBuilder.Entity<Comment>()
                 .Property(c => c.PostId).IsRequired();
@@ -185,7 +201,9 @@ namespace ZigForum.Models
                 .HasKey(c => c.Id);
 
             modelBuilder.Entity<CommentHistory>()
-                .HasRequired(c => c.Comment);
+                .HasRequired(c => c.Comment)
+                .WithMany()
+                .HasForeignKey(c => c.CommentId);
 
             modelBuilder.Entity<CommentHistory>()
                 .Property(c => c.CommentId).IsRequired();
@@ -202,13 +220,19 @@ namespace ZigForum.Models
                 .HasKey(c => new { c.CommentId, c.UserAuthorId, c.UserTargetId });
 
             modelBuilder.Entity<CommentVote>()
-                .HasRequired(c => c.Comment);
+                .HasRequired(c => c.Comment)
+                .WithMany()
+                .HasForeignKey(c => c.CommentId);
 
             modelBuilder.Entity<CommentVote>()
-                .HasRequired(c => c.UserAuthor);
+                .HasRequired(c => c.UserAuthor)
+                .WithMany()
+                .HasForeignKey(c => c.UserAuthorId);
 
             modelBuilder.Entity<CommentVote>()
-                .HasRequired(c => c.UserTarget);
+                .HasRequired(c => c.UserTarget)
+                .WithMany()
+                .HasForeignKey(c => c.UserTargetId);
 
             modelBuilder.Entity<CommentVote>()
                 .Property(c => c.CommentId).IsRequired();
@@ -228,6 +252,16 @@ namespace ZigForum.Models
                 .HasKey(f => new { f.ForumId, f.UserId });
 
             modelBuilder.Entity<ForumModerator>()
+                .HasRequired(f => f.Forum)
+                .WithMany()
+                .HasForeignKey(f => f.ForumId);
+
+            modelBuilder.Entity<ForumModerator>()
+                .HasRequired(f => f.User)
+                .WithMany()
+                .HasForeignKey(f => f.UserId);
+
+            modelBuilder.Entity<ForumModerator>()
                 .Property(f => f.UserId).IsRequired();
 
             modelBuilder.Entity<ForumModerator>()
@@ -242,7 +276,9 @@ namespace ZigForum.Models
                 .HasKey(b => b.Id);
 
             modelBuilder.Entity<Ban>()
-                .HasRequired(b => b.User);
+                .HasRequired(b => b.User)
+                .WithMany()
+                .HasForeignKey(b => b.UserId);
 
             modelBuilder.Entity<Ban>()
                 .Property(b => b.UserId).IsRequired();
