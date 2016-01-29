@@ -3,16 +3,16 @@
     
     angular
         .module('zigforumApp')
-        .controller('PostController', PostController);
+        .controller('PostDetailController', PostDetailController);
     
-    PostController.$inject = ['$routeParams', 'post'];
+    PostDetailController.$inject = ['$routeParams', 'posts'];
     
-    function PostController($routeParams, post) {
+    function PostDetailController($routeParams, posts) {
         var vm = this;
         
         vm.post = {};
         
-        post.getById(function (data) {
+        posts.getById(function (data) {
             vm.post = data;
         }, function (error) {
             alert(error);

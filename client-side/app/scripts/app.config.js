@@ -20,9 +20,9 @@
                     controller: 'ForumDetailController',
                     controllerAs: 'vm'
                 })
-                .when('/post/:id', {
-                    templateUrl: 'scripts/post/post.html',
-                    controller: 'PostController',
+                .when('/posts/:id', {
+                    templateUrl: 'scripts/posts/post-detail.html',
+                    controller: 'PostDetailController',
                     controllerAs: 'vm'
                 })
                 .when('/signin', {

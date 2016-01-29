@@ -43,7 +43,7 @@
                             <div class="media-left">
                                 <span class="glyphicon glyphicon-file"></span>
                             </div>
-                            <div class="media-body">{{post.title}}</div>
+                            <div class="media-body"><a ng-href="#/posts/{{post.id}}">{{post.title}}</a></div>
                         </div>
                     </td>
                     <td>
@@ -51,7 +51,7 @@
                         <div style="font-size: 10px;">9999 Views</div>
                     </td>
                     <td>
-                        <div style="font-size: 10px;"><span class="glyphicon glyphicon-user"></span> by {{post.user.user_name}}</div>
+                        <div style="font-size: 10px;"><span class="glyphicon glyphicon-user"></span> by <a ng-href="">{{post.user.user_name}}</a></div>
                         <div style="font-size: 10px;"><span class="glyphicon glyphicon-time"></span> Sun Dec 06, 2015 12:18 am</div>
                     </td>
                 </tr>

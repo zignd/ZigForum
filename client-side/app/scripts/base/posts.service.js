@@ -3,13 +3,13 @@
     
     angular
         .module('zigforumApp')
-        .service('post', post);
+        .service('posts', posts);
     
-    post.$inject = ['$http', 'API_URL'];
+    posts.$inject = ['$http', 'API_URL'];
     
-    function post($http, API_URL) {
+    function posts($http, API_URL) {
         var sv = this;
-        var endpoint = API_URL + '/post';
+        var endpoint = API_URL + '/posts';
         
         /**
          * Retrieves a post by its id

@@ -54,17 +54,10 @@ namespace ZigForum.Migrations
                 UserName = "admin",
                 Created = DateTime.Now
             };
-            try
-            {
-                userManager.Create(admin, "password");
-                admin = userManager.FindByName(admin.UserName);
-                userManager.AddToRole(admin.Id, "Administrator");
-            }
-            catch
-            {
-                throw new Exception("0.1");
-            }
-            
+
+            userManager.Create(admin, "password");
+            admin = userManager.FindByName(admin.UserName);
+            userManager.AddToRole(admin.Id, "Administrator");
         }
 
         private void CreateTestData(ApplicationDbContext context)
