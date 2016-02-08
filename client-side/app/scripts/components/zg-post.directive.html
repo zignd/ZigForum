@@ -1,8 +1,35 @@
-<div class="panel panel-default">
+<!--<div class="panel panel-default">
     <div class="panel-heading">
-        <a ng-href="#/posts/{{data.id}}">{{data.title}}</a>
+        <a ng-href="#/posts/{{post.id}}">{{post.title}}</a>
     </div>
     <div class="panel-body">
-        {{data.body}}
+        {{post.body}}
+    </div>
+</div>-->
+
+
+<div class="zg-item panel panel-primary">
+    <div class="zg-item-profile">
+        <img class="zg-item-profile-avatar" src="{{comment.user.avatar_url}}" />
+        <div class="zg-item-profile-username">{{comment.user.user_name}}</div>
+        <div class="zg-item-profile-reputation">{{comment.user.reputation}}</div>
+    </div>
+    <div class="zg-item-separator-vertical"></div>
+    <div class="zg-item-body">
+        <div class="zg-item-body-content">
+            {{post.body}}
+        </div>
+        <div ng-show="{{comment.signature}}">
+            <div class="zg-item-separator-horizontal"></div>
+            <div class="zg-item-body-signature">
+                {{comment.signature}}
+            </div>
+        </div>
+    </div>
+    <div class="zg-item-separator-vertical"></div>
+    <div class="zg-item-votes">
+        <span class="zg-item-votes-arrow glyphicon glyphicon-menu-up"></span>
+        <div>{{comment.votes}}</div>
+        <span class="zg-item-votes-arrow glyphicon glyphicon-menu-down"></span>
     </div>
 </div>

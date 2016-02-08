@@ -12,10 +12,14 @@
         
         vm.topLevelForums = [];
         
-        forums.getAllTopLevel(function (data) {
+        forums.getAllTopLevel(getAllTopLevelOnSuccess, getAllTopLevelOnFail);
+        
+        function getAllTopLevelOnSuccess(data) {
             vm.topLevelForums = data;
-        }, function (error) {
+        }
+        
+        function getAllTopLevelOnFail(error) {
             alert(error);
-        });
+        }
     }
 })();

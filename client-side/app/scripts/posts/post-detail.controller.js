@@ -5,17 +5,31 @@
         .module('zigforumApp')
         .controller('PostDetailController', PostDetailController);
     
-    PostDetailController.$inject = ['$routeParams', 'posts'];
+    PostDetailController.$inject = ['$routeParams', 'posts', 'comments'];
     
-    function PostDetailController($routeParams, posts) {
+    function PostDetailController($routeParams, posts, comments) {
         var vm = this;
         
         vm.post = {};
+        vm.comments = [];
         
-        posts.getById(function (data) {
+        posts.getById(getByIdOnSuccess, getByIdOnFail, $routeParams.id);
+        comments.getByPostId(getByPostIdOnSuccess, getByPostIdOnFail, $routeParams.id);
+
+        function getByIdOnSuccess(data) {
             vm.post = data;
-        }, function (error) {
+        }
+        
+        function getByIdOnFail(error) {
             alert(error);
-        }, $routeParams.id);
+        }
+        
+        function getByPostIdOnSuccess(data) {
+            vm.comments = data;
+        }
+        
+        function getByPostIdOnFail(error) {
+            alert(error);
+        }
     }
 })();

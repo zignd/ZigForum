@@ -27,5 +27,76 @@ textarea {
   other selectors that are more specific or come later and might alter display.
  */
 [ng\:cloak], [ng-cloak], .ng-cloak {
-  display: none !important;
+    display: none !important;
+}
+
+.zg-margin {
+    border: 1px solid black;
+}
+
+.zg-item {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 1em;
+}
+
+.zg-item-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.zg-item-profile-avatar {
+    width: 5em;
+    height: 5em;
+    background-size: auto 100%;
+    background-color: transparent;
+    background-position: 50%;
+    background-repeat: no-repeat;
+}
+
+.zg-item-profile-username {
+    font-size: smaller;
+}
+
+.zg-item-profile-reputation {
+    font-size: x-small;
+}
+
+.zg-item-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    width: 20em;
+}
+
+.zg-item-body-signature {
+    font-size: smaller;
+}
+
+.zg-item-votes {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 2em;
+}
+
+.zg-item-votes-arrow {
+    font-size: 25px;
+    display: block;
+}
+
+.zg-item-separator-vertical {
+    border-left: .1em solid lightgray;
+    margin: 0em 1em;
+}
+
+.zg-item-separator-horizontal {
+    border-top: .1em solid lightgray;
+    margin: 1em 0em;
+}
+
+.zg-item-children {
+    padding-left: 2em;
+    border-left: 1px dashed darkgray;
 }

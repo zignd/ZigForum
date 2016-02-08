@@ -1,9 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <a ng-href="#/forum/{{data.id}}">{{data.name}}</a>
+        <a ng-href="#/forum/{{forum.id}}">{{forum.name}}</a>
     </div>
     <div class="panel-body">
-        <table class="table" ng-show="data.subforums">
+        <table class="table" ng-show="forum.subforums">
             <thead>
                 <tr>
                     <th>Subforums</th>
@@ -12,7 +12,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="subforum in data.subforums">
+                <tr ng-repeat="subforum in forum.subforums">
                     <td>
                         <div class="media">
                             <div class="media-left">
@@ -28,7 +28,7 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table" ng-show="data.posts">
+        <table class="table" ng-show="posts">
             <thead>
                 <tr>
                     <th>Posts</th>
@@ -37,7 +37,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="post in data.posts">
+                <tr ng-repeat="post in posts">
                     <td>
                         <div class="media">
                             <div class="media-left">

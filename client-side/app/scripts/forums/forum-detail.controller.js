@@ -5,17 +5,31 @@
         .module('zigforumApp')
         .controller('ForumDetailController', ForumDetailController);
 
-    ForumDetailController.$inject = ['$routeParams', 'forums'];
+    ForumDetailController.$inject = ['$routeParams', 'forums', 'posts'];
 
-    function ForumDetailController($routeParams, forums) {
+    function ForumDetailController($routeParams, forums, posts) {
         var vm = this;
 
         vm.forum = {};
+        vm.posts = [];
 
-        forums.getById(function (data) {
+        forums.getById(getByIdOnSuccess, getByIdOnFail, $routeParams.id);
+        posts.getByForumId(getByForumIdOnSuccess, getByForumIdOnFail, $routeParams.id);
+        
+        function getByIdOnSuccess(data) {
             vm.forum = data;
-        }, function (error) {
+        }
+        
+        function getByIdOnFail(error) {
             alert(error);
-        }, $routeParams.id);
+        }
+        
+        function getByForumIdOnSuccess(data) {
+            vm.posts = data;
+        }
+        
+        function getByForumIdOnFail(error) {
+            alert(error);
+        }
     }
 })();

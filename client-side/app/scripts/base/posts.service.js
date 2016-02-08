@@ -29,6 +29,23 @@
         };
         
         /**
+         * Retrieves posts by a forum id
+         */
+        sv.getByForumId = function (onSuccess, onFail, id) {
+            var config = {
+                method: 'GET',
+                url: endpoint + '/forumid/' + id
+            };
+            
+            $http(config)
+                .then(function (response) {
+                    onSuccess(response.data);
+                }, function (response) {
+                    onFail(response.statusText);
+                });
+        }
+        
+        /**
          * Creates a new post
          */
         sv.createNew = function (onSuccess, onFail, newPost) {
