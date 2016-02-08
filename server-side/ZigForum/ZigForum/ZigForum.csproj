@@ -152,6 +152,7 @@
     <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CommentsController.cs" />
     <Compile Include="Controllers\Common\ZigForumApiController.cs" />
     <Compile Include="Controllers\ForumsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />
@@ -159,13 +160,14 @@
     <Compile Include="Migrations\201512301200476_Initial.Designer.cs">
       <DependentUpon>201512301200476_Initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201601060419373_Base.cs" />
-    <Compile Include="Migrations\201601060419373_Base.Designer.cs">
-      <DependentUpon>201601060419373_Base.cs</DependentUpon>
+    <Compile Include="Migrations\201602071712551_Base.cs" />
+    <Compile Include="Migrations\201602071712551_Base.Designer.cs">
+      <DependentUpon>201602071712551_Base.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Ban.cs" />
     <Compile Include="Models\Comment.cs" />
+    <Compile Include="Models\DTOs\CommentDTO.cs" />
     <Compile Include="Models\Forum.cs" />
     <Compile Include="Models\ForumModerator.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -174,6 +176,7 @@
     <Compile Include="Models\PostHistory.cs" />
     <Compile Include="Models\CommentVote.cs" />
     <Compile Include="Models\PostVote.cs" />
+    <Compile Include="Models\Validators\CommentValidators.cs" />
     <Compile Include="Models\Validators\PostValidators.cs" />
     <Compile Include="Models\Validators\ForumValidators.cs" />
     <Compile Include="Models\DTOs\ForumDTO.cs" />
@@ -200,8 +203,8 @@
     <EmbeddedResource Include="Migrations\201512301200476_Initial.resx">
       <DependentUpon>201512301200476_Initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601060419373_Base.resx">
-      <DependentUpon>201601060419373_Base.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602071712551_Base.resx">
+      <DependentUpon>201602071712551_Base.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

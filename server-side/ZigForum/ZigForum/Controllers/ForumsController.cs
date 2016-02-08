@@ -29,14 +29,14 @@ namespace ZigForum.Controllers
         {
             var data = await Db.Forums
                 .OrderByDescending(f => f.Name)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
                 .Select(f => new ForumDTO
                 {
                     Id = f.Id,
                     Name = f.Name,
                     Created = f.Created
-                }).ToArrayAsync();
+                })
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize).ToArrayAsync();
 
             return Ok(data);
         }
@@ -48,27 +48,27 @@ namespace ZigForum.Controllers
         {
             var data = await Db.Forums
                 .Where(f => !f.ParentId.HasValue)
-                .OrderBy(f => f.Name)
-                .Skip((page - 1) * pageSize)
                 .Take(pageSize)
                 .Select(f => new ForumDTO
                 {
                     Id = f.Id,
                     Name = f.Name
-                }).ToListAsync();
+                })
+                .OrderBy(f => f.Name)
+                .Skip((page - 1) * pageSize).ToListAsync();
 
-            data.ForEach(f =>
+            foreach (var f in data)
             {
-                var subForums = Db.Forums
+                var subForums = await Db.Forums
                     .Where(sf => sf.ParentId.HasValue ? sf.ParentId.Value == f.Id : false)
                     .Select(sf => new ForumDTO
                     {
                         Id = sf.Id,
                         Name = sf.Name
-                    }).ToList();
+                    }).ToListAsync();
 
                 f.SubForums = subForums.Count > 0 ? subForums : null;
-            });
+            }
 
             return Ok(data);
         }
@@ -106,29 +106,6 @@ namespace ZigForum.Controllers
                     Id = f.Id,
                     Name = f.Name
                 }).ToList();
-            }
-
-            if (forum.Posts.Count > 0)
-            {
-                data.Posts = forum.Posts.Select(d => new PostDTO
-                {
-                    Id = d.Id,
-                    UserId = d.UserId,
-                    Title = d.Title,
-                    IsLocked = d.IsLocked
-                }).ToList();
-
-                data.Posts.ForEach(p =>
-                {
-                    p.User = Db.Users
-                        .Where(u => u.Id.Equals(p.UserId))
-                        .Select(u => new UserDTO
-                        {
-                            Id = u.Id,
-                            UserName = u.UserName,
-                            Created = u.Created
-                        }).SingleOrDefault();
-                });
             }
 
             return Ok(data);

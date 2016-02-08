@@ -33,7 +33,7 @@ namespace ZigForum.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         PostId = c.Int(nullable: false),
                         UserId = c.String(nullable: false, maxLength: 128),
-                        ParentId = c.Int(nullable: false),
+                        ParentId = c.Int(),
                         Body = c.String(nullable: false),
                         Updated = c.DateTime(),
                         Created = c.DateTime(nullable: false),
@@ -156,6 +156,7 @@ namespace ZigForum.Migrations
                 .Index(t => t.UserAuthorId)
                 .Index(t => t.UserTargetId);
             
+            AddColumn("dbo.AspNetUsers", "IsBanned", c => c.Boolean(nullable: false));
             AddForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles", "Id");
             AddForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers", "Id");
             AddForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers", "Id");
@@ -202,6 +203,7 @@ namespace ZigForum.Migrations
             DropIndex("dbo.Comment", new[] { "UserId" });
             DropIndex("dbo.Comment", new[] { "PostId" });
             DropIndex("dbo.Ban", new[] { "UserId" });
+            DropColumn("dbo.AspNetUsers", "IsBanned");
             DropTable("dbo.PostVote");
             DropTable("dbo.PostHistory");
             DropTable("dbo.ForumModerator");

@@ -141,10 +141,11 @@ namespace ZigForum.Migrations
 
             // Post
 
+            Post lastPost = null;
 
             for (int i = 0; i < 100; i++)
             {
-                context.Posts.Add(new Post
+                lastPost = context.Posts.Add(new Post
                 {
                     UserId = user.Id,
                     ForumId = forum1.Id,
@@ -153,6 +154,72 @@ namespace ZigForum.Migrations
                     Created = DateTime.Now
                 });
             }
+
+            context.SaveChanges();
+
+            // Comment
+
+            var comment1 = context.Comments.Add(new Comment
+            {
+                UserId = user.Id,
+                PostId = lastPost.Id,
+                Body = "Comment 1",
+                Created = DateTime.Now
+            });
+
+            context.SaveChanges();
+
+                var comment11 = context.Comments.Add(new Comment
+                {
+                    UserId = user.Id,
+                    PostId = lastPost.Id,
+                    ParentId = comment1.Id,
+                    Body = "Comment 1.1",
+                    Created = DateTime.Now
+                });
+
+                context.SaveChanges();
+
+                var comment12 = context.Comments.Add(new Comment
+                {
+                    UserId = user.Id,
+                    PostId = lastPost.Id,
+                    ParentId = comment1.Id,
+                    Body = "Comment 1.2",
+                    Created = DateTime.Now
+                });
+
+                context.SaveChanges();
+
+                    var comment121 = context.Comments.Add(new Comment
+                    {
+                        UserId = user.Id,
+                        PostId = lastPost.Id,
+                        ParentId = comment12.Id,
+                        Body = "Comment 1.2.1",
+                        Created = DateTime.Now
+                    });
+
+                    context.SaveChanges();
+
+                    var comment122 = context.Comments.Add(new Comment
+                    {
+                        UserId = user.Id,
+                        PostId = lastPost.Id,
+                        ParentId = comment12.Id,
+                        Body = "Comment 1.2.2",
+                        Created = DateTime.Now
+                    });
+
+                    context.SaveChanges();
+
+            var comment2 = context.Comments.Add(new Comment
+            {
+                UserId = user.Id,
+                PostId = lastPost.Id,
+                Body = "Comment 2",
+                Created = DateTime.Now
+            });
 
             context.SaveChanges();
         }

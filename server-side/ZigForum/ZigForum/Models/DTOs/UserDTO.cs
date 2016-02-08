@@ -15,6 +15,9 @@ namespace ZigForum.Models.DTOs
         [JsonProperty("user_name")]
         public string UserName { get; set; }
 
+        [JsonProperty("is_banned")]
+        public bool? IsBanned { get; set; }
+
         [JsonProperty("created")]
         public DateTime? Created { get; set; }
     }

@@ -55,6 +55,35 @@ namespace ZigForum.Controllers
             return Ok(data);
         }
 
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("forumid/{id:int}")]
+        public async Task<IHttpActionResult> GetByForumId(int id, int page = 1, int pageSize = 15)
+        {
+            var data = await Db.Posts
+                .OrderByDescending(p => p.Updated)
+                .OrderByDescending(p => p.Created)
+                .Where(p => p.ForumId == id)
+                .Select(p => new PostDTO
+                {
+                    Id = p.Id,
+                    ForumId = p.ForumId,
+                    Title = p.Title,
+                    IsLocked = p.IsLocked,
+                    Updated = p.Updated,
+                    Created = p.Created,
+                    User = new UserDTO
+                    {
+                        UserName = !p.User.IsBanned ? p.User.UserName : "[User Banned]",
+                        IsBanned = p.User.IsBanned
+                    }
+                })
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize).ToArrayAsync();
+
+            return Ok(data);
+        }
+
         [HttpPost]
         [Route("create")]
         public async Task<IHttpActionResult> CreateNew([FromBody]PostDTO data)

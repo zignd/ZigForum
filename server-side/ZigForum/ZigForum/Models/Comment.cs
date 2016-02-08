@@ -19,5 +19,6 @@ namespace ZigForum.Models
         public virtual Post Post { get; set; }
         public virtual ApplicationUser User { get; set; }
         public virtual Comment Parent { get; set; }
+        public virtual ICollection<Comment> Children { get; set; }
     }
 }

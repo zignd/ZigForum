@@ -14,6 +14,7 @@ namespace ZigForum.Models
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit http://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
     public class ApplicationUser : IdentityUser
     {
+        public bool IsBanned { get; set; }
         public DateTime Created { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -179,8 +180,8 @@ namespace ZigForum.Models
                 .HasForeignKey(c => c.UserId);
 
             modelBuilder.Entity<Comment>()
-                .HasRequired(c => c.Parent)
-                .WithMany()
+                .HasOptional(c => c.Parent)
+                .WithMany(c => c.Children)
                 .HasForeignKey(c => c.ParentId);
 
             modelBuilder.Entity<Comment>()
