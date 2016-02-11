@@ -10,7 +10,6 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -21,6 +20,9 @@
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/winstrap-optional.css -->
     <link rel="stylesheet" href="styles/winstrap-optional.css">
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/loading-bar.css -->
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbuild -->
 </head>
 
@@ -72,11 +74,12 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
-    <script src='bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    
     <script src="scripts/app.js"></script>
     <script src="scripts/app.config.js"></script>
     <script src="scripts/app.constants.js"></script>
