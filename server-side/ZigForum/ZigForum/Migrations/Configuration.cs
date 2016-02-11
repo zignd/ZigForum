@@ -143,7 +143,7 @@ namespace ZigForum.Migrations
 
             Post lastPost = null;
 
-            for (int i = 0; i < 100; i++)
+            for (int i = 1; i <= 100; i++)
             {
                 lastPost = context.Posts.Add(new Post
                 {

@@ -63,6 +63,7 @@ namespace ZigForum.Controllers
             var data = await Db.Posts
                 .OrderByDescending(p => p.Updated)
                 .OrderByDescending(p => p.Created)
+                .OrderByDescending(p => p.Id)
                 .Where(p => p.ForumId == id)
                 .Select(p => new PostDTO
                 {
