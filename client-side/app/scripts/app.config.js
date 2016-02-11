@@ -3,6 +3,9 @@
 
     angular
         .module('zigforumApp')
+        .config(['cfpLoadingBarProvider', function (cfpLoadingBarProvider) {
+            cfpLoadingBarProvider.includeSpinner = false;
+        }])
         .config(function ($routeProvider) {
             $routeProvider
                 .when('/', {

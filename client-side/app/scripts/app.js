@@ -4,6 +4,8 @@
     angular
         .module('zigforumApp', [
             'ngRoute',
-            'ngCookies'
+            'ngCookies',
+            'angular-loading-bar',
+            'ngAnimate'
         ]);
 })();

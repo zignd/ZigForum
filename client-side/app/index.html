@@ -1,6 +1,7 @@
 ﻿<!doctype html>
 <html ng-app="zigforumApp">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -9,13 +10,21 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
-  </head>
-  <body ng-controller="RootController as vm" ng-cloak>
+    <!-- build:css(.tmp) styles/winstrap.css -->
+    <link rel="stylesheet" href="styles/winstrap.css">
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/winstrap-optional.css -->
+    <link rel="stylesheet" href="styles/winstrap-optional.css">
+    <!-- endbuild -->
+</head>
+
+<body ng-controller="RootController as vm" ng-cloak>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -44,9 +53,9 @@
         </div>
     </div>
 
-    <div class="container body-content">
-        <div ng-view></div>
-        <hr />
+    <div ng-view></div>
+    <hr />
+    <div class="container">
         <footer>
             <p style="font: 10px consolas, monospace">:P</p>
         </footer>
@@ -63,35 +72,36 @@
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src='bower_components/angular-loading-bar/build/loading-bar.min.js'></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/app.config.js"></script>
-        <script src="scripts/app.constants.js"></script>
-        
-        <script src="scripts/base/forums.service.js"></script>
-        <script src="scripts/base/users.service.js"></script>
-        <script src="scripts/base/posts.service.js"></script>
-        <script src="scripts/base/comments.service.js"></script>
-        
-        <script src="scripts/base/root.controller.js"></script>
-        
-        <script src="scripts/components/zg-forum.directive.js"></script>
-        <script src="scripts/components/zg-post.directive.js"></script>
-        <script src="scripts/components/zg-itens.directive.js"></script>
-        <script src="scripts/components/zg-item.directive.js"></script>
-        
-        <script src="scripts/account/signin.controller.js"></script>
-        <script src="scripts/account/signup.controller.js"></script>
-        
-        <script src="scripts/main/main.controller.js"></script>
-        
-        <script src="scripts/forums/forums.controller.js"></script>
-        <script src="scripts/forums/forum-detail.controller.js"></script>
-        
-        <script src="scripts/posts/post-detail.controller.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/app.config.js"></script>
+    <script src="scripts/app.constants.js"></script>
+
+    <script src="scripts/base/forums.service.js"></script>
+    <script src="scripts/base/users.service.js"></script>
+    <script src="scripts/base/posts.service.js"></script>
+    <script src="scripts/base/comments.service.js"></script>
+
+    <script src="scripts/base/root.controller.js"></script>
+
+    <script src="scripts/components/zg-forum.directive.js"></script>
+    <script src="scripts/components/zg-itens.directive.js"></script>
+    <script src="scripts/components/zg-item.directive.js"></script>
+
+    <script src="scripts/account/signin.controller.js"></script>
+    <script src="scripts/account/signup.controller.js"></script>
+
+    <script src="scripts/main/main.controller.js"></script>
+
+    <script src="scripts/forums/forums.controller.js"></script>
+    <script src="scripts/forums/forum-detail.controller.js"></script>
+
+    <script src="scripts/posts/post-detail.controller.js"></script>
+    <!-- endbuild -->
 </body>
+
 </html>

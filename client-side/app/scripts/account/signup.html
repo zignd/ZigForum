@@ -1,1 +1,79 @@
-<p>Sign Up is empty, for now...</p>
+<script>
+    document.addEventListener('invalid', (function () {
+        return function (e) {
+            //prevent the browser from showing default error bubble/ hint
+            e.preventDefault();
+            // optionally fire off some custom validation handler
+            // myvalidationfunction();
+        };
+    })(), true);
+</script>
+
+<div class="page-header">
+    <div class="container m-b-sm">
+        <div class="row">
+            <h1>Sign Up <small>create an account</small></h1>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <form class="m-t-sm"
+          name="signUpForm"
+          ng-class="{true: 'error'}[submitted && form.email.$invalid]"
+          ng-submit="vm.signUp()">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input class="form-control"
+                   name="username"
+                   ng-model="vm.username"
+                   placeholder="Username"
+                   type="text"
+                   required
+                   ng-minlength="6"/>
+            <span class="color-type-alert" ng-show="submitted && signUpForm.username.$error.required">
+                This field is required.
+            </span>
+            <span class="color-type-alert" ng-show="submitted && signUpForm.username.$error.minlength">
+                Must contain more than 6 characters.
+            </span>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input class="form-control"
+                   name="email" 
+                   ng-model="vm.email" 
+                   placeholder="Email" 
+                   type="email" 
+                   required/>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input class="form-control" 
+                   name="password" 
+                   ng-model="vm.password" 
+                   placeholder="Password" 
+                   type="password" 
+                   required/>
+        </div>
+        <div class="form-group">
+            <label for="passwordConfirmation">Password Confirmation</label>
+            <input class="form-control"
+                   name="passwordConfirmation" 
+                   ng-model="vm.password" 
+                   placeholder="Password Confirmation" 
+                   type="password" 
+                   required/>
+        </div>
+        <div class="form-group">
+            <div class="checkbox">
+                <label>
+                    <input ng-model="vm.persist"
+                           type="checkbox" />
+                    <span>I agree with the <a href="#">terms of use</a>.</span>
+                </label>
+            </div>
+        </div>
+        <pre>{{submitted}}</pre>
+        <button class="btn btn-primary" type="submit" ng-click="submitted = true">Sign Up</button>
+    </form>
+</div>

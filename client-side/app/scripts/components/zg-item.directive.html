@@ -1,25 +1,30 @@
-<div class="zg-item panel panel-default">
-    <div class="zg-item-profile">
-        <img class="zg-item-profile-avatar" src="{{item.user.avatar_url}}" />
-        <div class="zg-item-profile-username">{{item.user.user_name}}</div>
-        <div class="zg-item-profile-reputation">{{item.user.reputation}}</div>
+<div class="panel panel-default">
+    <div class="panel-heading" ng-class="{hide: !item.title}">
+        <a ng-href="#/posts/{{item.id}}">{{item.title}}</a>
     </div>
-    <div class="zg-item-separator-vertical"></div>
-    <div class="zg-item-body">
-        <div class="zg-item-body-content">
-            {{item.body}}
+    <div class="zg-item">
+        <div class="zg-item-profile">
+            <img class="zg-item-profile-avatar" ng-src="{{item.user.avatar_url}}" />
+            <div class="zg-item-profile-username">{{item.user.user_name}}</div>
+            <div class="zg-item-profile-reputation">{{item.user.reputation}}</div>
         </div>
-        <div ng-show="{{item.signature}}">
-            <div class="zg-item-separator-horizontal"></div>
-            <div class="zg-item-body-signature">
-                {{item.signature}}
+        <div class="zg-item-separator-vertical"></div>
+        <div class="zg-item-body">
+            <div class="zg-item-body-content">
+                {{item.body}}
+            </div>
+            <div ng-show="{{item.signature}}">
+                <div class="zg-item-separator-horizontal"></div>
+                <div class="zg-item-body-signature">
+                    {{item.signature}}
+                </div>
             </div>
         </div>
-    </div>
-    <div class="zg-item-separator-vertical"></div>
-    <div class="zg-item-votes">
-        <span class="zg-item-votes-arrow glyphicon glyphicon-menu-up"></span>
-        <div>{{item.votes}}</div>
-        <span class="zg-item-votes-arrow glyphicon glyphicon-menu-down"></span>
+        <div class="zg-item-separator-vertical"></div>
+        <div class="zg-item-votes">
+            <span class="zg-item-votes-arrow glyphicon glyphicon-menu-up"></span>
+            <div>{{item.votes}}</div>
+            <span class="zg-item-votes-arrow glyphicon glyphicon-menu-down"></span>
+        </div>
     </div>
 </div>
