@@ -139,7 +139,7 @@ namespace ZigForum.Controllers
             return Ok(storedForum.Id);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("{id}/edit")]
         public async Task<IHttpActionResult> Edit(int id, [FromBody]ForumDTO data)
         {
@@ -169,7 +169,7 @@ namespace ZigForum.Controllers
 
             await Db.SaveChangesAsync();
 
-            return Ok();
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         [HttpDelete]
@@ -185,7 +185,7 @@ namespace ZigForum.Controllers
 
             await Db.SaveChangesAsync();
 
-            return Ok();
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }

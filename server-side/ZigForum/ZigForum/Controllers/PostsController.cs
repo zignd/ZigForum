@@ -148,7 +148,7 @@ namespace ZigForum.Controllers
 
             await Db.SaveChangesAsync();
 
-            return Ok();
+            return StatusCode(HttpStatusCode.NoContent);
         }
 
         [HttpDelete]
@@ -164,7 +164,7 @@ namespace ZigForum.Controllers
 
             await Db.SaveChangesAsync();
 
-            return Ok();
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }
