@@ -95,7 +95,7 @@
          */
         sv.edit = function (onSuccess, onFail, id, editedForum) {
             var config = {
-                method: 'PUT',
+                method: 'PATCH',
                 url: endpoint + '/' + id + '/edit',
                 data: editedForum
             };

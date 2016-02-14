@@ -68,7 +68,7 @@
          */
         sv.edit = function (onSuccess, onFail, id, editedPost) {
             var config = {
-                method: 'PUT',
+                method: 'PATCH',
                 url: endpoint + '/' + id + '/edit',
                 data: editedPost
             };
