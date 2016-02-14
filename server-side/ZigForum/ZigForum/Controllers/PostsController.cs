@@ -118,7 +118,7 @@ namespace ZigForum.Controllers
             return Ok(storedPost.Id);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("{id}/edit")]
         public async Task<IHttpActionResult> Edit(int id, [FromBody]PostDTO data)
         {

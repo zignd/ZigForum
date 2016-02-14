@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
@@ -84,7 +85,7 @@ namespace ZigForum.Controllers
             return Ok(storedComment.Id);
         }
 
-        [HttpPut]
+        [HttpPatch]
         [Route("{id}/edit")]
         public async Task<IHttpActionResult> Edit(int id, [FromBody]CommentDTO data)
         {
